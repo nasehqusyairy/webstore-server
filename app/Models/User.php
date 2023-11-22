@@ -45,7 +45,7 @@ class User extends Authenticatable
 
     public function addresses()
     {
-        return $this->hashMany(Addresses::class);
+        return $this->hasMany(Address::class);
     }
 
     public function card()
@@ -54,8 +54,6 @@ class User extends Authenticatable
     }
     public function transactions()
     {
-        return $this->hashMany(Transactions::class);
+        return $this->hasMany(Transaction::class);
     }
-
-
 }

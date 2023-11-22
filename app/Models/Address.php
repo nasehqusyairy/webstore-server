@@ -25,6 +25,6 @@ class Address extends Model
     }
     public function transactions()
     {
-        return $this->hashMany(Transactions::class);
+        return $this->hasMany(Transaction::class);
     }
 }

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Card extends Model
 {
     use HasFactory;
-    public $fillable =[
+    public $fillable = [
         'name',
         'number',
         'cvv',
@@ -22,6 +22,6 @@ class Card extends Model
     }
     public function transactions()
     {
-        return $this->hashMany(Transactions::class);
+        return $this->hasMany(Transaction::class);
     }
 }
