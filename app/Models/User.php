@@ -42,4 +42,20 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function addresses()
+    {
+        return $this->hashMany(Addresses::class);
+    }
+
+    public function card()
+    {
+        return $this->belongsTo(Card::class);
+    }
+    public function transactions()
+    {
+        return $this->hashMany(Transactions::class);
+    }
+
+
 }
