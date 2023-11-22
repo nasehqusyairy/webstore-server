@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('phone')->unique();
             $table->string('img')->nullable();
-            $table->integer('role');
+            $table->integer('role')->default(1);
             $table->rememberToken();
             $table->timestamps();
         });
