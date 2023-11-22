@@ -7,59 +7,31 @@ use Illuminate\Http\Request;
 
 class CardController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        return Card::all();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
     public function show(Card $card)
     {
-        //
+        return $card;
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Card $card)
+    public function store(Request $request)
     {
-        //
+        $card = Card::create($request->all());
+        return response()->json($card, 201);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Card $card)
     {
-        //
+        $card->update($request->all());
+        return response()->json($card, 200);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Card $card)
     {
-        //
+        $card->delete();
+        return response()->json(null, 204);
     }
 }

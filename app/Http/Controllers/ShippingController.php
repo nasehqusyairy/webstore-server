@@ -7,59 +7,31 @@ use Illuminate\Http\Request;
 
 class ShippingController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        return Shipping::all();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
     public function show(Shipping $shipping)
     {
-        //
+        return $shipping;
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Shipping $shipping)
+    public function store(Request $request)
     {
-        //
+        $shipping = Shipping::create($request->all());
+        return response()->json($shipping, 201);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Shipping $shipping)
     {
-        //
+        $shipping->update($request->all());
+        return response()->json($shipping, 200);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Shipping $shipping)
     {
-        //
+        $shipping->delete();
+        return response()->json(null, 204);
     }
 }
