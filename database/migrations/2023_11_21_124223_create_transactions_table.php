@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('address_id')->constrained()->cascadeOnDelete();
             $table->foreignId('card_id')->constrained()->cascadeOnDelete();
             $table->foreignId('shipping_id')->constrained()->cascadeOnDelete();
+            $table->integer('total');
             $table->string('status');
             $table->timestamps();
         });
