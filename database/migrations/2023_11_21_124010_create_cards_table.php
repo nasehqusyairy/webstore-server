@@ -14,9 +14,10 @@ return new class extends Migration
         Schema::create('cards', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('number');
+            $table->string('number')->unique();
             $table->string('cvv');
-            $table->string('date');
+            $table->integer('month');
+            $table->integer('year');
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });

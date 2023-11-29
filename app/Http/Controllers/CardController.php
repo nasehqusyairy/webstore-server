@@ -9,7 +9,8 @@ class CardController extends Controller
 {
     public function index()
     {
-        return Card::all();
+        $cards = auth()->user()->cards;
+        return response()->json(['cards' => $cards]);
     }
 
     public function show(Card $card)
@@ -19,14 +20,26 @@ class CardController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'number' => 'required|unique:cards',
+            'month' => 'required|integer|between:1,12',
+            'year' => 'required|integer'
+        ]);
+
         $card = Card::create($request->all());
-        return response()->json($card, 201);
+        return response()->json(['card' => $card], 201);
     }
 
     public function update(Request $request, Card $card)
     {
+        $request->validate([
+            'number' => 'required|unique:cards,number,' . $card->id,
+            'month' => 'required|integer|between:1,12',
+            'year' => 'required|integer'
+        ]);
+
         $card->update($request->all());
-        return response()->json($card, 200);
+        return response()->json(['card' => $card], 200);
     }
 
     public function destroy(Card $card)

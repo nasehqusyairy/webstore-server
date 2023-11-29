@@ -12,7 +12,8 @@ class Card extends Model
         'name',
         'number',
         'cvv',
-        'date',
+        'month',
+        'year',
         'user_id'
     ];
 

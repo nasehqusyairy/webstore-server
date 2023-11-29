@@ -36,7 +36,7 @@ class DatabaseSeeder extends Seeder
         Product::create([
             'name' => 'Buku Filsafat',
             'category_id' => 1,
-            'img' => 'https://picsum.photos/200',
+            'image' => 'https://picsum.photos/200',
             'price' => 100000,
             'stock' => 10,
             'discount' => 50000,
@@ -44,7 +44,7 @@ class DatabaseSeeder extends Seeder
         Product::create([
             'name' => 'Buku PPKn',
             'category_id' => 1,
-            'img' => 'https://picsum.photos/200',
+            'image' => 'https://picsum.photos/200',
             'price' => 100000,
             'stock' => 10,
             'discount' => 50000,

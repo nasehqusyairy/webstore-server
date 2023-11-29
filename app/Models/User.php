@@ -48,9 +48,9 @@ class User extends Authenticatable
         return $this->hasMany(Address::class);
     }
 
-    public function card()
+    public function cards()
     {
-        return $this->belongsTo(Card::class);
+        return $this->hasMany(Card::class);
     }
     public function transactions()
     {
