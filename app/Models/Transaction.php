@@ -14,7 +14,8 @@ class Transaction extends Model
         'address_id',
         'card_id',
         'shipping_id',
-        'status'
+        'status',
+        'total'
     ];
 
     public function user()

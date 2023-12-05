@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Shipping;
 use App\Models\Sponsor;
 use Illuminate\Http\Request;
 
@@ -15,7 +16,9 @@ class DashboardController extends Controller
             'categories' => Category::all(),
             'products' => Product::with('category')->get(),
             'sponsors' => Sponsor::all(),
-            'cards' => auth()->user()->cards,
+            // 'cards' => auth()->user()->cards,
+            // 'addresses' => auth()->user()->addresses,
+            'shippings' => Shipping::all(),
         ]);
     }
 }

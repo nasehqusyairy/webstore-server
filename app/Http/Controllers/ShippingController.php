@@ -9,7 +9,7 @@ class ShippingController extends Controller
 {
     public function index()
     {
-        return Shipping::all();
+        return response()->json(['shippings' => Shipping::all()]);
     }
 
     public function show(Shipping $shipping)
@@ -20,13 +20,13 @@ class ShippingController extends Controller
     public function store(Request $request)
     {
         $shipping = Shipping::create($request->all());
-        return response()->json($shipping, 201);
+        return response()->json(['shipping' => $shipping], 201);
     }
 
     public function update(Request $request, Shipping $shipping)
     {
         $shipping->update($request->all());
-        return response()->json($shipping, 200);
+        return response()->json(['shipping' => $shipping], 200);
     }
 
     public function destroy(Shipping $shipping)

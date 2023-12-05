@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Transaction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TransactionController extends Controller
 {
@@ -19,8 +20,21 @@ class TransactionController extends Controller
 
     public function store(Request $request)
     {
+
         $transaction = Transaction::create($request->all());
-        return response()->json($transaction, 201);
+
+        foreach ($request->products as $product) {
+            DB::table('transaction_product')->insert([
+                'transaction_id' => $transaction->id,
+                'product_id' => $product['id'],
+                'quantity' => $product['qty'],
+            ]);
+        }
+
+        return response()->json([
+            'message' => 'Transaction created successfully',
+            'transaction' => $transaction
+        ], 201);
     }
 
     public function update(Request $request, Transaction $transaction)
