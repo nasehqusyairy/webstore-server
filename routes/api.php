@@ -26,7 +26,11 @@ Route::get('/dashboard', [DashboardController::class, 'all']);
 Route::middleware('auth:api')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
 
-    Route::put('/user', [UserController::class, 'update']);
+    Route::get('/user', [UserController::class, 'attributes']);
+    Route::put('/user/{user}', [UserController::class, 'update']);
+    Route::get('/user/orders', [UserController::class, 'orders']);
+    Route::get('/user/cards', [UserController::class, 'cards']);
+    Route::get('/user/addresses', [UserController::class, 'addresses']);
 
     Route::apiResource('categories', CategoryController::class);
     Route::apiResource('products', ProductController::class);
@@ -34,5 +38,6 @@ Route::middleware('auth:api')->group(function () {
     Route::apiResource('cards', CardController::class);
     Route::apiResource('addresses', AddressController::class);
     Route::apiResource('shippings', ShippingController::class);
-    Route::apiResource('transactions', TransactionController::class);
+    Route::apiResource('orders', TransactionController::class);
 });
+// Route::apiResource('orders', TransactionController::class);

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -10,42 +11,47 @@ class TransactionController extends Controller
 {
     public function index()
     {
-        return Transaction::all();
+        return response()->json(['orders' => Transaction::with(['user', 'address', 'card', 'shipping'])->get()], 200);
     }
 
-    public function show(Transaction $transaction)
+    public function show(Transaction $order)
     {
-        return $transaction;
+        return response()->json(['order' => $order->load('user', 'address', 'card', 'shipping', 'products.category')], 200);
     }
 
     public function store(Request $request)
     {
 
-        $transaction = Transaction::create($request->all());
+        $order = Transaction::create($request->all());
 
         foreach ($request->products as $product) {
-            DB::table('transaction_product')->insert([
-                'transaction_id' => $transaction->id,
+            DB::table('product_transaction')->insert([
+                'transaction_id' => $order->id,
                 'product_id' => $product['id'],
                 'quantity' => $product['qty'],
             ]);
+
+            // Decrease product quantity
+            $productModel = Product::find($product['id']);
+            $productModel->stock -= $product['qty'];
+            $productModel->save();
         }
 
         return response()->json([
             'message' => 'Transaction created successfully',
-            'transaction' => $transaction
+            'order' => $order->load('user', 'address', 'card', 'shipping')
         ], 201);
     }
 
-    public function update(Request $request, Transaction $transaction)
+    public function update(Request $request, Transaction $order)
     {
-        $transaction->update($request->all());
-        return response()->json($transaction, 200);
+        $order->update($request->all());
+        return response()->json(['order' => $order->load('user', 'address', 'card', 'shipping')], 200);
     }
 
-    public function destroy(Transaction $transaction)
+    public function destroy(Transaction $order)
     {
-        $transaction->delete();
+        $order->delete();
         return response()->json(null, 204);
     }
 }

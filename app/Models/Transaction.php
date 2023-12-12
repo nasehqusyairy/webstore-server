@@ -22,7 +22,7 @@ class Transaction extends Model
     {
         return $this->belongsTo(User::class);
     }
-    public function addres()
+    public function address()
     {
         return $this->belongsTo(Address::class);
     }
@@ -33,5 +33,9 @@ class Transaction extends Model
     public function shipping()
     {
         return $this->belongsTo(Shipping::class);
+    }
+    public function products()
+    {
+        return $this->belongsToMany(Product::class)->withPivot('quantity');
     }
 }
